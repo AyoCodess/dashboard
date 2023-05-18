@@ -1,21 +1,23 @@
 'use client';
+
 import { useState } from 'react';
 import { Transition } from '@headlessui/react';
-import { FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown, FiMenu } from 'react-icons/fi';
 import Link from 'next/link';
 
 type MenuItem = {
   id: number;
   label: string;
   link?: string;
-  sumMenuItem?: {
+  subMenuItems?: {
     label: string;
     link: string;
   }[];
 };
 
 const Sidebar = () => {
-  const [openSubMenu, setOpenSubMenu] = useState<number | ''>('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
 
   const menuItems: MenuItem[] = [
     {
@@ -26,7 +28,7 @@ const Sidebar = () => {
     {
       id: 2,
       label: 'Operations',
-      sumMenuItem: [
+      subMenuItems: [
         {
           label: 'Cars',
           link: '/cars'
@@ -40,7 +42,7 @@ const Sidebar = () => {
     {
       id: 3,
       label: 'Statistics',
-      sumMenuItem: [
+      subMenuItems: [
         {
           label: 'Cars',
           link: '/cars'
@@ -54,7 +56,7 @@ const Sidebar = () => {
     {
       id: 4,
       label: 'Services',
-      sumMenuItem: [
+      subMenuItems: [
         {
           label: 'Cars',
           link: '/cars'
@@ -68,13 +70,13 @@ const Sidebar = () => {
   ];
 
   const toggleSubMenu = (menuId: number) => {
-    setOpenSubMenu((prevSubMenu) => (prevSubMenu === menuId ? '' : menuId));
+    setOpenSubMenu((prevSubMenu) => (prevSubMenu === menuId ? null : menuId));
   };
 
   return (
-    <div className="flex">
-      <div className="w-1/4">
-        <ul className="space-y-2">
+    <>
+      <div className="w-1/4 hidden sm:flex">
+        <ul className="sm:space-y-2">
           {menuItems.map((menuItem) => {
             if (menuItem.link) {
               return (
@@ -83,7 +85,7 @@ const Sidebar = () => {
                     href={menuItem.link}
                     className="flex items-center justify-between"
                   >
-                    <div>{menuItem.label}</div>
+                    {menuItem.label}
                   </Link>
                 </li>
               );
@@ -92,17 +94,14 @@ const Sidebar = () => {
             return (
               <li
                 key={menuItem.id}
-                className="w-[14rem] rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out "
+                className="w-[14rem] rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
               >
                 <div
-                  onClick={(e) => {
-                    toggleSubMenu(menuItem.id);
-                  }}
+                  onClick={() => toggleSubMenu(menuItem.id)}
                   className="flex items-center justify-between"
                 >
                   <div>{menuItem.label}</div>
-
-                  {menuItem.sumMenuItem && (
+                  {menuItem.subMenuItems && (
                     <FiChevronDown
                       className={`transform duration-200 ${
                         openSubMenu === menuItem.id ? 'rotate-180' : ''
@@ -110,7 +109,7 @@ const Sidebar = () => {
                     />
                   )}
                 </div>
-                {menuItem.sumMenuItem && (
+                {menuItem.subMenuItems && (
                   <Transition
                     show={openSubMenu === menuItem.id}
                     enter="transition-all ease-in duration-200"
@@ -121,13 +120,13 @@ const Sidebar = () => {
                     leaveTo="opacity-0 max-h-0"
                   >
                     <ul className="pl-4">
-                      {menuItem.sumMenuItem.map((child, index) => (
+                      {menuItem.subMenuItems.map((subMenuItem, index) => (
                         <li
                           key={index}
                           className="text-gray-700 py-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
                         >
-                          <Link href={child.link} passHref>
-                            {child.label}
+                          <Link href={subMenuItem.link}>
+                            {subMenuItem.label}
                           </Link>
                         </li>
                       ))}
@@ -139,8 +138,88 @@ const Sidebar = () => {
           })}
         </ul>
       </div>
-      {/* Your main content goes here */}
-    </div>
+      {/* MOBILE MENU */}
+      <div className=" w-[14rem] fixed top-0 h-screen sm:hidden">
+        <div className="flex fixed top-2 left-3 items-center justify-between">
+          <button
+            className="text-gray-600 focus:outline-none"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <FiMenu className="w-6 h-6" />
+          </button>
+        </div>
+        <Transition
+          show={isOpen}
+          enter="transition duration-300 ease-out"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition duration-300 ease-in"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className=" bg-gray-100 rounded-r-lg h-screen">
+            <ul className="space-y-2 pt-10">
+              {menuItems.map((menuItem) => (
+                <li
+                  key={menuItem.id}
+                  className=" rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+                >
+                  {menuItem.subMenuItems ? (
+                    <div
+                      onClick={() => toggleSubMenu(menuItem.id)}
+                      className="flex items-center justify-between"
+                    >
+                      <div>{menuItem.label}</div>
+                      <FiChevronDown
+                        className={`transform duration-200 ${
+                          openSubMenu === menuItem.id ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      {menuItem.link && (
+                        <Link
+                          href={menuItem.link!}
+                          className="flex items-center justify-between"
+                        >
+                          {menuItem.label}
+                        </Link>
+                      )}
+                    </>
+                  )}
+                  {menuItem.subMenuItems && (
+                    <Transition
+                      show={openSubMenu === menuItem.id}
+                      enter="transition-all ease-in duration-200"
+                      enterFrom="opacity-0 max-h-0"
+                      enterTo="opacity-100 max-h-[200px]"
+                      leave="transition-all ease-out duration-200"
+                      leaveFrom="opacity-100 max-h-[200px]"
+                      leaveTo="opacity-0 max-h-0"
+                    >
+                      <ul className="pl-4">
+                        {menuItem.subMenuItems.map((subMenuItem, index) => (
+                          <li
+                            key={index}
+                            className="text-gray-700 py-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
+                          >
+                            <Link href={subMenuItem.link}>
+                              {subMenuItem.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </Transition>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Transition>
+      </div>
+    </>
   );
 };
+
 export default Sidebar;
