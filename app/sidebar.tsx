@@ -30,12 +30,12 @@ const Sidebar = () => {
       label: 'Operations',
       subMenuItems: [
         {
-          label: 'Cars',
-          link: '/cars'
+          label: "KPI's",
+          link: '/kpi-metrics'
         },
         {
-          label: 'Bus',
-          link: '/bus'
+          label: 'Backlog',
+          link: '/backlog'
         }
       ]
     },
@@ -44,12 +44,12 @@ const Sidebar = () => {
       label: 'Statistics',
       subMenuItems: [
         {
-          label: 'Cars',
-          link: '/cars'
+          label: 'Q1',
+          link: '/Q1'
         },
         {
-          label: 'Bus',
-          link: '/bus'
+          label: 'Q2',
+          link: '/Q2'
         }
       ]
     },
@@ -58,12 +58,20 @@ const Sidebar = () => {
       label: 'Services',
       subMenuItems: [
         {
-          label: 'Cars',
-          link: '/cars'
+          label: 'Cleaning',
+          link: '/cleaning'
         },
         {
-          label: 'Bus',
-          link: '/bus'
+          label: 'Moving',
+          link: '/moving'
+        },
+        {
+          label: 'Construction',
+          link: '/construction'
+        },
+        {
+          label: 'Funeral',
+          link: '/funeral'
         }
       ]
     }
@@ -75,18 +83,17 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="w-1/4 hidden sm:flex">
+      {/* // DESKTOP MENU */}
+      <div className="hidden sm:flex">
         <ul className="sm:space-y-2">
           {menuItems.map((menuItem) => {
             if (menuItem.link) {
               return (
-                <li key={menuItem.id}>
-                  <Link
-                    href={menuItem.link}
-                    className="flex items-center justify-between"
-                  >
-                    {menuItem.label}
-                  </Link>
+                <li
+                  key={menuItem.id}
+                  className="w-[14rem] font-medium rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+                >
+                  <Link href={menuItem.link}>{menuItem.label}</Link>
                 </li>
               );
             }
@@ -94,7 +101,7 @@ const Sidebar = () => {
             return (
               <li
                 key={menuItem.id}
-                className="w-[14rem] rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+                className="w-[14rem] font-medium rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
               >
                 <div
                   onClick={() => toggleSubMenu(menuItem.id)}
@@ -121,14 +128,17 @@ const Sidebar = () => {
                   >
                     <ul className="pl-4">
                       {menuItem.subMenuItems.map((subMenuItem, index) => (
-                        <li
-                          key={index}
-                          className="text-gray-700 py-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
+                        <Link
+                          href={subMenuItem.link}
+                          className="whitespace-nowrap"
                         >
-                          <Link href={subMenuItem.link}>
-                            {subMenuItem.label}
-                          </Link>
-                        </li>
+                          <li
+                            key={index}
+                            className="text-gray-700 font-normal py-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
+                          >
+                            {`- ${subMenuItem.label}`}
+                          </li>
+                        </Link>
                       ))}
                     </ul>
                   </Transition>
@@ -139,8 +149,8 @@ const Sidebar = () => {
         </ul>
       </div>
       {/* MOBILE MENU */}
-      <div className=" w-[14rem] fixed top-0 h-screen sm:hidden">
-        <div className="flex fixed top-2 left-3 items-center justify-between">
+      <div className=" absolute top-0 w-screen sm:hidden">
+        <div className="flex absolute top-2 left-3 items-center justify-between">
           <button
             className="text-gray-600 focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -157,12 +167,12 @@ const Sidebar = () => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className=" bg-gray-100 rounded-r-lg h-screen">
+          <div className=" bg-gray-100 rounded-r-lg py-2 ">
             <ul className="space-y-2 pt-10">
               {menuItems.map((menuItem) => (
                 <li
                   key={menuItem.id}
-                  className=" rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+                  className="  text-gray-700 font-medium py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
                 >
                   {menuItem.subMenuItems ? (
                     <div
@@ -202,10 +212,13 @@ const Sidebar = () => {
                         {menuItem.subMenuItems.map((subMenuItem, index) => (
                           <li
                             key={index}
-                            className="text-gray-700 py-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
+                            className="text-gray-700 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
                           >
-                            <Link href={subMenuItem.link}>
-                              {subMenuItem.label}
+                            <Link
+                              href={subMenuItem.link}
+                              className="whitespace-nowrap"
+                            >
+                              {`- ${subMenuItem.label}`}
                             </Link>
                           </li>
                         ))}
