@@ -18,7 +18,7 @@ export default function Home() {
       <hr className="border-b border-0 border-gray-200 w-full"></hr>
 
       <main className="flex flex-1 justify-between  w-full">
-        <section className=" w-30 sm:w-60 py-4 p-4 overflow-y-auto overflow-x-hidden h-screen  ">
+        <section className=" w-40 sm:w-60 py-4 p-4 overflow-y-auto overflow-x-hidden h-screen  ">
           <div className="mb-40 mx-2">
             <Sidebar />
           </div>

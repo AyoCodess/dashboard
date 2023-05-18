@@ -55,13 +55,15 @@ const Sidebar = () => {
               className="w-[14rem] rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out "
             >
               <div
-                onClick={() => toggleSubMenu(menuItem.id)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleSubMenu(menuItem.id);
+                }}
                 className="flex items-center justify-between"
               >
                 <Link
                   href={menuItem.link}
                   onClick={(e) => {
-                    e.preventDefault();
                     e.stopPropagation();
                   }}
                 >
