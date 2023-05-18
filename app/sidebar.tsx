@@ -58,9 +58,16 @@ const Sidebar = () => {
                 onClick={() => toggleSubMenu(menuItem.id)}
                 className="flex items-center justify-between"
               >
-                <Link href={menuItem.link} onClick={(e) => e.stopPropagation()}>
+                <Link
+                  href={menuItem.link}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
                   {menuItem.label}
                 </Link>
+
                 {menuItem.children && (
                   <FiChevronDown
                     className={`transform duration-200 ${
