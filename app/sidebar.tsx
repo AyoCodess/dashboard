@@ -110,7 +110,7 @@ const Sidebar = () => {
                   <div>{menuItem.label}</div>
                   {menuItem.subMenuItems && (
                     <FiChevronDown
-                      className={`transform duration-200 ${
+                      className={`transform duration-200  ${
                         openSubMenu === menuItem.id ? 'rotate-180' : ''
                       }`}
                     />
@@ -167,7 +167,7 @@ const Sidebar = () => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className=" bg-gray-100 rounded-r-lg py-2 ">
+          <div className=" bg-gray-100 rounded-r-lg py-2 shadow-xl border-b border-gray-200 ">
             <ul className="space-y-2 pt-10">
               {menuItems.map((menuItem) => (
                 <li
