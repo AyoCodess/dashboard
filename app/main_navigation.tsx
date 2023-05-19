@@ -15,7 +15,7 @@ type MenuItem = {
   }[];
 };
 
-const Sidebar = () => {
+const MainNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
 
@@ -235,4 +235,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default MainNavigation;
