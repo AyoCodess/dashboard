@@ -42,6 +42,7 @@ export default async function page() {
               permissions.map((permission, index) => (
                 <p key={index}>- {permission}</p>
               ))}
+            {!permissions && <p>You have no permissions</p>}
           </section>
         </main>
       </div>
