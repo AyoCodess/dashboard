@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import MainNavigation from './main_navigation';
 import { ClerkProvider } from '@clerk/nextjs';
+import MenuClickBoundary from '@/utils/menu_click_boundary';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -41,7 +43,9 @@ export default function RootLayout({
                   <MainNavigation />
                 </div>
               </section>
-              <section className="flex-1 p-4">{children} </section>
+              <section className="flex-1 p-4">
+                <MenuClickBoundary>{children} </MenuClickBoundary>
+              </section>
             </main>
           </main>
         </body>

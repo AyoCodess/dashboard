@@ -5,7 +5,8 @@ import { Transition } from '@headlessui/react';
 import { FiChevronDown, FiMenu } from 'react-icons/fi';
 import Link from 'next/link';
 import { UserButton } from '@clerk/clerk-react';
-import { SignInButton, useUser } from '@clerk/nextjs';
+import { SignInButton, useUser, SignedIn, SignedOut } from '@clerk/nextjs';
+import { useMenuStore } from '@/stores/menu_store';
 
 type MenuItem = {
   id: number;
@@ -18,7 +19,8 @@ type MenuItem = {
 };
 
 const MainNavigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen, menuRef } = useMenuStore();
+
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
 
   const { isLoaded, isSignedIn, user } = useUser();
@@ -94,73 +96,86 @@ const MainNavigation = () => {
     <>
       {/* // DESKTOP MENU */}
       <div className="hidden sm:flex">
-        <ul className="sm:space-y-2">
-          {menuItems.map((menuItem) => {
-            if (menuItem.link) {
+        <div className="flex flex-col justify-between h-[90vh]">
+          <ul className=" flex flex-col sm:space-y-2  ">
+            {menuItems.map((menuItem) => {
+              if (menuItem.link) {
+                return (
+                  <li
+                    key={menuItem.id}
+                    className="w-[14rem] font-medium rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+                  >
+                    <Link href={menuItem.link}>{menuItem.label}</Link>
+                  </li>
+                );
+              }
               return (
                 <li
                   key={menuItem.id}
                   className="w-[14rem] font-medium rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
                 >
-                  <Link href={menuItem.link}>{menuItem.label}</Link>
+                  <div
+                    onClick={() => toggleSubMenu(menuItem.id)}
+                    className="flex items-center justify-between"
+                  >
+                    <div>{menuItem.label}</div>
+                    {menuItem.subMenuItems && (
+                      <FiChevronDown
+                        className={`transform duration-200  ${
+                          openSubMenu === menuItem.id ? 'rotate-180' : ''
+                        }`}
+                      />
+                    )}
+                  </div>
+                  {menuItem.subMenuItems && (
+                    <Transition
+                      show={openSubMenu === menuItem.id}
+                      enter="transition-all ease-in duration-200"
+                      enterFrom="opacity-0 max-h-0"
+                      enterTo="opacity-100 max-h-[200px]"
+                      leave="transition-all ease-out duration-200"
+                      leaveFrom="opacity-100 max-h-[200px]"
+                      leaveTo="opacity-0 max-h-0"
+                    >
+                      <ul className="pl-4">
+                        {menuItem.subMenuItems.map((subMenuItem, index) => (
+                          <Link
+                            key={index}
+                            href={subMenuItem.link}
+                            className="whitespace-nowrap"
+                          >
+                            <li className="text-gray-700 font-normal py-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12">
+                              {`- ${subMenuItem.label}`}
+                            </li>
+                          </Link>
+                        ))}
+                      </ul>
+                    </Transition>
+                  )}
                 </li>
               );
-            }
-
-            return (
-              <li
-                key={menuItem.id}
-                className="w-[14rem] font-medium rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
-              >
-                <div
-                  onClick={() => toggleSubMenu(menuItem.id)}
-                  className="flex items-center justify-between"
-                >
-                  <div>{menuItem.label}</div>
-                  {menuItem.subMenuItems && (
-                    <FiChevronDown
-                      className={`transform duration-200  ${
-                        openSubMenu === menuItem.id ? 'rotate-180' : ''
-                      }`}
-                    />
-                  )}
-                </div>
-                {menuItem.subMenuItems && (
-                  <Transition
-                    show={openSubMenu === menuItem.id}
-                    enter="transition-all ease-in duration-200"
-                    enterFrom="opacity-0 max-h-0"
-                    enterTo="opacity-100 max-h-[200px]"
-                    leave="transition-all ease-out duration-200"
-                    leaveFrom="opacity-100 max-h-[200px]"
-                    leaveTo="opacity-0 max-h-0"
-                  >
-                    <ul className="pl-4">
-                      {menuItem.subMenuItems.map((subMenuItem, index) => (
-                        <Link
-                          key={index}
-                          href={subMenuItem.link}
-                          className="whitespace-nowrap"
-                        >
-                          <li className="text-gray-700 font-normal py-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12">
-                            {`- ${subMenuItem.label}`}
-                          </li>
-                        </Link>
-                      ))}
-                    </ul>
-                  </Transition>
-                )}
-              </li>
-            );
-          })}
+            })}
+          </ul>
           <div className="p-4">
-            {<UserButton />}
-            {!isSignedIn && <SignInButton />}
+            <div className="flex flex-row gap-2 items-center">
+              <UserButton />
+              <div className="flex flex-col">
+                <p className="text-xs">
+                  {user && (user.firstName ?? '') + user!.lastName}
+                </p>
+                <p className="text-xs text-gray-400">
+                  {user && user.emailAddresses[0].emailAddress}
+                </p>
+              </div>
+            </div>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
           </div>
-        </ul>
+        </div>
       </div>
       {/* MOBILE MENU */}
-      <div className=" absolute top-0 w-screen sm:hidden z-10">
+      <div className=" fixed top-0 w-3/4 sm:hidden z-10">
         <div className="flex absolute top-2 left-3 items-center justify-between">
           <button
             className="text-gray-600 focus:outline-none"
@@ -178,7 +193,10 @@ const MainNavigation = () => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className=" bg-gray-100 rounded-r-lg py-2 shadow-xl border-b border-gray-200 ">
+          <div
+            ref={menuRef}
+            className="flex flex-col bg-gray-100 h-screen rounded-r-lg py-2 shadow-xl border-b border-gray-200 "
+          >
             <ul className="space-y-2 pt-10">
               {menuItems.map((menuItem) => (
                 <li
@@ -238,11 +256,23 @@ const MainNavigation = () => {
                   )}
                 </li>
               ))}
-              <div className="p-4">
-                {<UserButton />}
-                {!isSignedIn && <SignInButton />}
-              </div>
             </ul>
+            <div className="p-4 mt-auto">
+              <div className="flex flex-row gap-2 items-center">
+                <UserButton />
+                <div className="flex flex-col">
+                  <p className="text-xs">
+                    {user && (user.firstName ?? '') + user!.lastName}
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    {user && user.emailAddresses[0].emailAddress}
+                  </p>
+                </div>
+              </div>
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+            </div>
           </div>
         </Transition>
       </div>
