@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html className="sm:overflow-hidden" lang="en">
+    <html className="sm:overflow-hidden overflow-x-hidden " lang="en">
       <body className={inter.className}>
         <main className="flex min-h-screen flex-col items-center justify-between ">
           <div className="flex w-full h-12">
@@ -33,7 +33,7 @@ export default function RootLayout({
           </div>
           <hr className="border-b border-0 border-gray-200 w-full"></hr>
 
-          <main className="flex flex-1 justify-between  w-full">
+          <main className="flex flex-1 justify-between  w-full ">
             <section className=" sm:w-60 py-4 overflow-y-auto overflow-x-hidden h-screen  ">
               <div className="sm:ml-2">
                 <Sidebar />
