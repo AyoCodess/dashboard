@@ -27,6 +27,11 @@ const MainNavigation = () => {
     },
     {
       id: 2,
+      label: 'Admin Console',
+      link: '/admin-panel'
+    },
+    {
+      id: 3,
       label: 'Operations',
       subMenuItems: [
         {
@@ -40,7 +45,7 @@ const MainNavigation = () => {
       ]
     },
     {
-      id: 3,
+      id: 4,
       label: 'Statistics',
       subMenuItems: [
         {
@@ -54,7 +59,7 @@ const MainNavigation = () => {
       ]
     },
     {
-      id: 4,
+      id: 5,
       label: 'Services',
       subMenuItems: [
         {
