@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { FiChevronDown, FiMenu } from 'react-icons/fi';
 import Link from 'next/link';
+import { UserButton } from '@clerk/clerk-react';
+import { SignInButton, useUser } from '@clerk/nextjs';
 
 type MenuItem = {
   id: number;
@@ -19,6 +21,8 @@ const MainNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
 
+  const { isLoaded, isSignedIn, user } = useUser();
+
   const menuItems: MenuItem[] = [
     {
       id: 1,
@@ -28,7 +32,7 @@ const MainNavigation = () => {
     {
       id: 2,
       label: 'Admin Console',
-      link: '/admin-panel'
+      link: '/admin-console'
     },
     {
       id: 3,
@@ -151,10 +155,14 @@ const MainNavigation = () => {
               </li>
             );
           })}
+          <div className="p-4">
+            {<UserButton />}
+            {!isSignedIn && <SignInButton />}
+          </div>
         </ul>
       </div>
       {/* MOBILE MENU */}
-      <div className=" absolute top-0 w-screen sm:hidden">
+      <div className=" absolute top-0 w-screen sm:hidden z-10">
         <div className="flex absolute top-2 left-3 items-center justify-between">
           <button
             className="text-gray-600 focus:outline-none"
@@ -232,6 +240,10 @@ const MainNavigation = () => {
                   )}
                 </li>
               ))}
+              <div className="p-4">
+                {<UserButton />}
+                {!isSignedIn && <SignInButton />}
+              </div>
             </ul>
           </div>
         </Transition>

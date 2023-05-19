@@ -41,7 +41,7 @@ export default function RootLayout({
                   <MainNavigation />
                 </div>
               </section>
-              <section className="flex-1 p-4 ">{children} </section>
+              <section className="flex-1 p-4">{children} </section>
             </main>
           </main>
         </body>

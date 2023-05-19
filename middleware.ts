@@ -10,7 +10,8 @@ export default authMiddleware({
     '/cleaning',
     '/moving',
     '/construction',
-    '/funeral'
+    '/funeral',
+    '/user-profile'
   ]
 });
 
