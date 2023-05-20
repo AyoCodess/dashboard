@@ -220,6 +220,7 @@ const MainNavigation = () => {
                     <>
                       {menuItem.link && (
                         <Link
+                          onClick={() => setIsOpen(false)}
                           href={menuItem.link!}
                           className="flex items-center justify-between"
                         >
@@ -242,6 +243,7 @@ const MainNavigation = () => {
                         {menuItem.subMenuItems.map((subMenuItem, index) => (
                           <Link
                             href={subMenuItem.link}
+                            onClick={() => setIsOpen(false)}
                             className="whitespace-nowrap"
                           >
                             <li
