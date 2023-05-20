@@ -16,5 +16,9 @@ export default function MenuClickBoundary({
     }
   };
 
-  return <div onClick={handleOutsideClick}>{children}</div>;
+  return (
+    <div className="h-screen" onClick={handleOutsideClick}>
+      {children}
+    </div>
+  );
 }

@@ -44,6 +44,7 @@ export default function RootLayout({
                 </div>
               </section>
               <section className="flex-1 p-4">
+                <div className="mb-12"></div>
                 <MenuClickBoundary>{children} </MenuClickBoundary>
               </section>
             </main>
