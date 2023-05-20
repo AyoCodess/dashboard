@@ -2,7 +2,7 @@ import { UserProfile } from '@clerk/nextjs';
 
 function UserProfilePage() {
   return (
-    <div className="sm:overflow-y-scroll sm:h-[90vh] sm:w-fit sm:py-10">
+    <div className="sm:overflow-y-scroll overflow-x-hidden sm:overflow-x-auto sm:h-[90vh] sm:w-fit sm:py-10">
       <UserProfile
         path="/user-profile"
         routing="path"

@@ -96,7 +96,7 @@ const MainNavigation = () => {
     <>
       {/* // DESKTOP MENU */}
       <div className="hidden sm:flex">
-        <div className="flex flex-col justify-between h-[90vh] w-full">
+        <div className="flex flex-col justify-between h-[95vh] w-full">
           <ul className="space-y-2 pt-10 px-2">
             {menuItems.map((menuItem) => (
               <li
@@ -157,7 +157,7 @@ const MainNavigation = () => {
               </li>
             ))}
           </ul>
-          <div className="p-4">
+          <div className="p-4 mt auto">
             <div className="flex flex-row gap-2 items-center">
               <UserButton />
               <div className="flex flex-col">
@@ -196,7 +196,7 @@ const MainNavigation = () => {
         >
           <div
             ref={menuRef}
-            className="flex flex-col bg-gray-100 h-screen rounded-r-lg py-2 shadow-xl border-b border-gray-200 "
+            className="flex flex-col bg-gray-100 rounded-r-lg py-2 shadow-xl border-b border-gray-200 h-[90vh] animate-sidebar-height"
           >
             <ul className="space-y-2 pt-10">
               {menuItems.map((menuItem) => (
@@ -258,7 +258,7 @@ const MainNavigation = () => {
                 </li>
               ))}
             </ul>
-            <div className="p-4 mt-auto">
+            <div className="p-4 mt-auto sm:mb-0">
               <div className="flex flex-row gap-2 items-center">
                 <UserButton />
                 <div className="flex flex-col">
