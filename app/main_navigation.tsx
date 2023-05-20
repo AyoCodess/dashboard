@@ -184,102 +184,128 @@ const MainNavigation = () => {
             onClick={() => setIsOpen(!isOpen)}
           >
             {!isOpen && <FiMenu className="w-6 h-6 mt-1" />}
-            {isOpen && <GrClose className="w-5 h-6 animate-fade-in" />}
+            {isOpen && <GrClose className="z-10 w-5 h-6 animate-fade-in" />}
           </button>
         </div>
         <Transition
           show={isOpen}
-          enter="transition duration-300 ease-out"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition duration-300 ease-in"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+          enter="transition-transform duration-500"
+          enterFrom="-translate-x-full"
+          enterTo="translate-x-0"
+          leave="transition-transform duration-500"
+          leaveFrom="translate-x-0"
+          leaveTo="-translate-x-full"
         >
-          <div
-            ref={menuRef}
-            className="flex flex-col bg-gray-100 rounded-r-lg py-2 shadow-xl border-b border-gray-200  animate-sidebar-height h-screen w-screen"
-          >
-            <ul className="space-y-2 pt-10">
-              {menuItems.map((menuItem) => (
-                <li
-                  key={menuItem.id}
-                  className="  text-gray-500 font-medium py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+          {(ref) => (
+            <section ref={ref}>
+              <div className="flex fixed top-2 left-3 items-center justify-between">
+                <button
+                  className="text-gray-600 focus:outline-none"
+                  onClick={() => setIsOpen(!isOpen)}
                 >
-                  {menuItem.subMenuItems ? (
-                    <div
-                      onClick={() => toggleSubMenu(menuItem.id)}
-                      className="flex items-center justify-between"
-                    >
-                      <div>{menuItem.label}</div>
-                      <FiChevronDown
-                        className={`transform duration-200 ${
-                          openSubMenu === menuItem.id ? 'rotate-180' : ''
-                        }`}
-                      />
-                    </div>
-                  ) : (
-                    <>
-                      {menuItem.link && (
-                        <Link
-                          onClick={() => setIsOpen(false)}
-                          href={menuItem.link!}
-                          className="flex items-center justify-between"
-                        >
-                          {menuItem.label}
-                        </Link>
-                      )}
-                    </>
+                  {isOpen && (
+                    <GrClose className="z-10 w-5 h-6 animate-fade-in" />
                   )}
-                  {menuItem.subMenuItems && (
-                    <Transition
-                      show={openSubMenu === menuItem.id}
-                      enter="transition-all ease-in duration-200"
-                      enterFrom="opacity-0 max-h-0"
-                      enterTo="opacity-100 max-h-[200px]"
-                      leave="transition-all ease-out duration-200"
-                      leaveFrom="opacity-100 max-h-[200px]"
-                      leaveTo="opacity-0 max-h-0"
-                    >
-                      <ul className="pl-4">
-                        {menuItem.subMenuItems.map((subMenuItem, index) => (
-                          <Link
-                            href={subMenuItem.link}
-                            onClick={() => setIsOpen(false)}
-                            className="whitespace-nowrap"
-                          >
-                            <li
-                              key={index}
-                              className="text-gray-500 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
-                            >
-                              {`- ${subMenuItem.label}`}
-                            </li>
-                          </Link>
-                        ))}
-                      </ul>
-                    </Transition>
-                  )}
-                </li>
-              ))}
-            </ul>
-            <hr className="border-b border-gray-200 mt-6" />
-            <div className="p-4 sm:mb-0">
-              <div className="flex flex-row gap-2 items-center">
-                <UserButton />
-                <div className="flex flex-col">
-                  <p className="text-xs">
-                    {user && (user.firstName ?? '') + user!.lastName}
-                  </p>
-                  <p className="text-xs text-gray-400">
-                    {user && user.emailAddresses[0].emailAddress}
-                  </p>
-                </div>
+                </button>
               </div>
-              <SignedOut>
-                <SignInButton />
-              </SignedOut>
-            </div>
-          </div>
+              <Transition
+                show={isOpen}
+                enter="transition duration-300 ease-out"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="transition duration-300 ease-in"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div
+                  ref={menuRef}
+                  className="flex flex-col bg-gray-100 rounded-r-lg py-2 shadow-xl border-b border-gray-200   h-screen w-screen"
+                >
+                  <ul className="space-y-2 pt-10">
+                    {menuItems.map((menuItem) => (
+                      <li
+                        key={menuItem.id}
+                        className="  text-gray-500 font-medium py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+                      >
+                        {menuItem.subMenuItems ? (
+                          <div
+                            onClick={() => toggleSubMenu(menuItem.id)}
+                            className="flex items-center justify-between"
+                          >
+                            <div>{menuItem.label}</div>
+                            <FiChevronDown
+                              className={`transform duration-200 ${
+                                openSubMenu === menuItem.id ? 'rotate-180' : ''
+                              }`}
+                            />
+                          </div>
+                        ) : (
+                          <>
+                            {menuItem.link && (
+                              <Link
+                                onClick={() => setIsOpen(false)}
+                                href={menuItem.link!}
+                                className="flex items-center justify-between"
+                              >
+                                {menuItem.label}
+                              </Link>
+                            )}
+                          </>
+                        )}
+                        {menuItem.subMenuItems && (
+                          <Transition
+                            show={openSubMenu === menuItem.id}
+                            enter="transition-all ease-in duration-200"
+                            enterFrom="opacity-0 max-h-0"
+                            enterTo="opacity-100 max-h-[200px]"
+                            leave="transition-all ease-out duration-200"
+                            leaveFrom="opacity-100 max-h-[200px]"
+                            leaveTo="opacity-0 max-h-0"
+                          >
+                            <ul className="pl-4">
+                              {menuItem.subMenuItems.map(
+                                (subMenuItem, index) => (
+                                  <Link
+                                    href={subMenuItem.link}
+                                    onClick={() => setIsOpen(false)}
+                                    className="whitespace-nowrap"
+                                  >
+                                    <li
+                                      key={index}
+                                      className="text-gray-500 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
+                                    >
+                                      {`- ${subMenuItem.label}`}
+                                    </li>
+                                  </Link>
+                                )
+                              )}
+                            </ul>
+                          </Transition>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  <hr className="border-b border-gray-200 mt-6" />
+                  <div className="p-4 sm:mb-0">
+                    <div className="flex flex-row gap-2 items-center">
+                      <UserButton />
+                      <div className="flex flex-col">
+                        <p className="text-xs">
+                          {user && (user.firstName ?? '') + user!.lastName}
+                        </p>
+                        <p className="text-xs text-gray-400">
+                          {user && user.emailAddresses[0].emailAddress}
+                        </p>
+                      </div>
+                    </div>
+                    <SignedOut>
+                      <SignInButton />
+                    </SignedOut>
+                  </div>
+                </div>
+              </Transition>
+            </section>
+          )}
         </Transition>
       </div>
     </>
