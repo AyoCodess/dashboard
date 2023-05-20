@@ -26,3 +26,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 2. I have not configured production because we have to add some DNS records which is unnecessary for this demo.
 3. [A good live clerk organizational demo]('https://github.com/clerkinc/organizations-demo') 
 4. [we can add permissions by adding to user object]('https://clerk.com/docs/users/user-metadata?utm_source=www.google.com&utm_medium=referral&utm_campaign=none)
+
+5. optimized for mobile and desktop
