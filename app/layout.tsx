@@ -36,15 +36,15 @@ export default function RootLayout({
               </ul>
             </div>
             <hr className="border-b border-0 border-gray-200 w-full"></hr>
-
+            <div className="mb-12"></div>
             <main className="flex flex-1 justify-between  w-full ">
               <section className=" sm:w-60 py-4 overflow-y-auto overflow-x-hidden h-screen  ">
                 <div className="sm:ml-2">
                   <MainNavigation />
                 </div>
               </section>
-              <section className="flex-1 p-4">
-                <div className="mb-12"></div>
+
+              <section className="flex flex-1 p-4">
                 <MenuClickBoundary>{children} </MenuClickBoundary>
               </section>
             </main>
