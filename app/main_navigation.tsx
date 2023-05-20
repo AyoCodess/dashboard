@@ -96,65 +96,66 @@ const MainNavigation = () => {
     <>
       {/* // DESKTOP MENU */}
       <div className="hidden sm:flex">
-        <div className="flex flex-col justify-between h-[90vh]">
-          <ul className=" flex flex-col sm:space-y-2  ">
-            {menuItems.map((menuItem) => {
-              if (menuItem.link) {
-                return (
-                  <li
-                    key={menuItem.id}
-                    className="w-[14rem] font-medium rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
-                  >
-                    <Link href={menuItem.link}>{menuItem.label}</Link>
-                  </li>
-                );
-              }
-              return (
-                <li
-                  key={menuItem.id}
-                  className="w-[14rem] font-medium rounded-md text-gray-700 py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
-                >
+        <div className="flex flex-col justify-between h-[90vh] w-full">
+          <ul className="space-y-2 pt-10 px-2">
+            {menuItems.map((menuItem) => (
+              <li
+                key={menuItem.id}
+                className="  text-gray-700 font-medium py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+              >
+                {menuItem.subMenuItems ? (
                   <div
                     onClick={() => toggleSubMenu(menuItem.id)}
                     className="flex items-center justify-between"
                   >
                     <div>{menuItem.label}</div>
-                    {menuItem.subMenuItems && (
-                      <FiChevronDown
-                        className={`transform duration-200  ${
-                          openSubMenu === menuItem.id ? 'rotate-180' : ''
-                        }`}
-                      />
-                    )}
+                    <FiChevronDown
+                      className={`transform duration-200 ${
+                        openSubMenu === menuItem.id ? 'rotate-180' : ''
+                      }`}
+                    />
                   </div>
-                  {menuItem.subMenuItems && (
-                    <Transition
-                      show={openSubMenu === menuItem.id}
-                      enter="transition-all ease-in duration-200"
-                      enterFrom="opacity-0 max-h-0"
-                      enterTo="opacity-100 max-h-[200px]"
-                      leave="transition-all ease-out duration-200"
-                      leaveFrom="opacity-100 max-h-[200px]"
-                      leaveTo="opacity-0 max-h-0"
-                    >
-                      <ul className="pl-4">
-                        {menuItem.subMenuItems.map((subMenuItem, index) => (
-                          <Link
+                ) : (
+                  <>
+                    {menuItem.link && (
+                      <Link
+                        href={menuItem.link!}
+                        className="flex items-center justify-between"
+                      >
+                        {menuItem.label}
+                      </Link>
+                    )}
+                  </>
+                )}
+                {menuItem.subMenuItems && (
+                  <Transition
+                    show={openSubMenu === menuItem.id}
+                    enter="transition-all ease-in duration-200"
+                    enterFrom="opacity-0 max-h-0"
+                    enterTo="opacity-100 max-h-[200px]"
+                    leave="transition-all ease-out duration-200"
+                    leaveFrom="opacity-100 max-h-[200px]"
+                    leaveTo="opacity-0 max-h-0"
+                  >
+                    <ul className="">
+                      {menuItem.subMenuItems.map((subMenuItem, index) => (
+                        <Link
+                          href={subMenuItem.link}
+                          className="whitespace-nowrap"
+                        >
+                          <li
                             key={index}
-                            href={subMenuItem.link}
-                            className="whitespace-nowrap"
+                            className="text-gray-700 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
                           >
-                            <li className="text-gray-700 font-normal py-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12">
-                              {`- ${subMenuItem.label}`}
-                            </li>
-                          </Link>
-                        ))}
-                      </ul>
-                    </Transition>
-                  )}
-                </li>
-              );
-            })}
+                            {`- ${subMenuItem.label}`}
+                          </li>
+                        </Link>
+                      ))}
+                    </ul>
+                  </Transition>
+                )}
+              </li>
+            ))}
           </ul>
           <div className="p-4">
             <div className="flex flex-row gap-2 items-center">
