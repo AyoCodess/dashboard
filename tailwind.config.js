@@ -13,7 +13,7 @@ module.exports = {
             height: '80vh'
           },
           to: {
-            height: '90vh'
+            height: '100vh'
           }
         }
       },

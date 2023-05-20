@@ -176,8 +176,8 @@ const MainNavigation = () => {
         </div>
       </div>
       {/* MOBILE MENU */}
-      <div className=" fixed top-0 w-3/4 sm:hidden z-10">
-        <div className="flex absolute top-2 left-3 items-center justify-between">
+      <div className=" fixed top-0 sm:hidden z-10">
+        <div className="flex fixed top-2 left-3 items-center justify-between">
           <button
             className="text-gray-600 focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -196,7 +196,7 @@ const MainNavigation = () => {
         >
           <div
             ref={menuRef}
-            className="flex flex-col bg-gray-100 rounded-r-lg py-2 shadow-xl border-b border-gray-200 h-[90vh] animate-sidebar-height"
+            className="flex flex-col bg-gray-100 rounded-r-lg py-2 shadow-xl border-b border-gray-200  animate-sidebar-height h-screen w-screen"
           >
             <ul className="space-y-2 pt-10">
               {menuItems.map((menuItem) => (
@@ -258,7 +258,8 @@ const MainNavigation = () => {
                 </li>
               ))}
             </ul>
-            <div className="p-4 mt-auto sm:mb-0">
+            <hr className="border-b border-gray-200 mt-6" />
+            <div className="p-4 sm:mb-0">
               <div className="flex flex-row gap-2 items-center">
                 <UserButton />
                 <div className="flex flex-col">

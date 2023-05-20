@@ -17,7 +17,7 @@ export default function MenuClickBoundary({
   };
 
   return (
-    <div className="flex flex-1" onClick={handleOutsideClick}>
+    <div className="flex flex-1 " onClick={handleOutsideClick}>
       {children}
     </div>
   );
