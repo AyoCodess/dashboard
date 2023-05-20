@@ -4,7 +4,6 @@ import React from 'react';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import MainNavigation from './main_navigation';
-import MenuClickBoundary from '@/utils/menu_click_boundary';
 import { useMenuStore } from '@/stores/menu_store';
 import classNames from 'classnames';
 
@@ -36,16 +35,16 @@ export function Main({ children }: { children: React.ReactNode }) {
           </ul>
         </header>
 
-        <main className="flex flex-1 justify-between w-full  ">
+        <section className="flex flex-1 justify-between w-full  ">
           <section className=" sm:w-60 py-4 sm:overflow-y-auto overflow-x-hidden h-screen sm:border-r bg-gray-50 sm:border-gray-100">
             <MainNavigation />
           </section>
 
           <section className="flex flex-col flex-1 p-4 ">
             <div className="h-12"></div>
-            <MenuClickBoundary>{children}</MenuClickBoundary>
+            <main>{children}</main>
           </section>
-        </main>
+        </section>
       </section>
     </body>
   );
