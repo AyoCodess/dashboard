@@ -239,17 +239,17 @@ const MainNavigation = () => {
                     >
                       <ul className="pl-4">
                         {menuItem.subMenuItems.map((subMenuItem, index) => (
-                          <li
-                            key={index}
-                            className="text-gray-700 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
+                          <Link
+                            href={subMenuItem.link}
+                            className="whitespace-nowrap"
                           >
-                            <Link
-                              href={subMenuItem.link}
-                              className="whitespace-nowrap"
+                            <li
+                              key={index}
+                              className="text-gray-700 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
                             >
                               {`- ${subMenuItem.label}`}
-                            </Link>
-                          </li>
+                            </li>
+                          </Link>
                         ))}
                       </ul>
                     </Transition>
