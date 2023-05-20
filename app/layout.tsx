@@ -19,10 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html className="sm:overflow-hidden overflow-x-hidden " lang="en">
+      <html className="sm:overflow-hidden overflow-x-hidden  " lang="en">
         <body className={inter.className}>
-          <main className="flex min-h-screen flex-col items-center justify-between ">
-            <div className="flex w-full h-12 fixed top-0 sm:flex bg-white z-10 shadow sm:shadow-none">
+          <section className="flex flex-col min-h-screen items-center justify-between   ">
+            <header className="w-full h-12 fixed top-0 sm:flex bg-white z-10 shadow sm:shadow-none sm:border-b sm:border-gray-200 ">
               <div className="w-30 sm:w-60 items-center justify-center p-2">
                 <p className="text-2xl mx-auto ml-10 w-fit mt-[-0.2rem] sm:mt-0">
                   Logo
@@ -34,21 +34,21 @@ export default function RootLayout({
                 <li>Customer</li>
                 <li>Product</li>
               </ul>
-            </div>
-            <hr className="border-b border-0 border-gray-200 w-full"></hr>
+            </header>
+
             <div className="mb-12"></div>
-            <main className="flex flex-1 justify-between  w-full ">
-              <section className=" sm:w-60 py-4 overflow-y-auto overflow-x-hidden h-screen  ">
-                <div className="sm:ml-2">
+            <main className="flex flex-1 justify-between  w-full  ">
+              <section className=" sm:w-60 py-4 overflow-y-auto overflow-x-hidden h-screen sm:border-r bg-gray-50 sm:border-gray-100">
+                <div className="sm:ml-2 ">
                   <MainNavigation />
                 </div>
               </section>
 
-              <section className="flex flex-1 p-4">
+              <section className="flex flex-1 p-4 ">
                 <MenuClickBoundary>{children} </MenuClickBoundary>
               </section>
             </main>
-          </main>
+          </section>
         </body>
       </html>
     </ClerkProvider>
