@@ -10,15 +10,24 @@ module.exports = {
       keyframes: {
         'sidebar-height': {
           from: {
-            height: '80vh'
+            height: '40vh'
           },
           to: {
             height: '100vh'
           }
+        },
+        'fade-in': {
+          from: {
+            opacity: '0'
+          },
+          to: {
+            opacity: '1'
+          }
         }
       },
       animation: {
-        'sidebar-height': 'sidebar-height 0.5s ease-in-out'
+        'sidebar-height': 'sidebar-height 1s ease-in-out',
+        'fade-in': 'fade-in 1.5s ease-in-out'
       }
     }
   },

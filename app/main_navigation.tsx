@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { FiChevronDown, FiMenu } from 'react-icons/fi';
+import { GrClose } from 'react-icons/gr';
 import Link from 'next/link';
 import { UserButton } from '@clerk/clerk-react';
 import { SignInButton, useUser, SignedIn, SignedOut } from '@clerk/nextjs';
@@ -101,7 +102,7 @@ const MainNavigation = () => {
             {menuItems.map((menuItem) => (
               <li
                 key={menuItem.id}
-                className="  text-gray-700 font-medium py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+                className="  text-gray-500 font-medium py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
               >
                 {menuItem.subMenuItems ? (
                   <div
@@ -145,7 +146,7 @@ const MainNavigation = () => {
                         >
                           <li
                             key={index}
-                            className="text-gray-700 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
+                            className="text-gray-500 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
                           >
                             {`- ${subMenuItem.label}`}
                           </li>
@@ -182,7 +183,8 @@ const MainNavigation = () => {
             className="text-gray-600 focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <FiMenu className="w-6 h-6" />
+            {!isOpen && <FiMenu className="w-6 h-6 mt-1" />}
+            {isOpen && <GrClose className="w-5 h-6 animate-fade-in" />}
           </button>
         </div>
         <Transition
@@ -202,7 +204,7 @@ const MainNavigation = () => {
               {menuItems.map((menuItem) => (
                 <li
                   key={menuItem.id}
-                  className="  text-gray-700 font-medium py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
+                  className="  text-gray-500 font-medium py-2 px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 ease-in-out"
                 >
                   {menuItem.subMenuItems ? (
                     <div
@@ -248,7 +250,7 @@ const MainNavigation = () => {
                           >
                             <li
                               key={index}
-                              className="text-gray-700 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
+                              className="text-gray-500 font-normal py-2 cursor-pointer  hover:bg-gray-100 transition-colors duration-200 ease-in-out w-12"
                             >
                               {`- ${subMenuItem.label}`}
                             </li>
