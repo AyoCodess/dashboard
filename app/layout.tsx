@@ -22,7 +22,7 @@ export default function RootLayout({
       <html className="sm:overflow-hidden overflow-x-hidden " lang="en">
         <body className={inter.className}>
           <main className="flex min-h-screen flex-col items-center justify-between ">
-            <div className="flex w-full h-12">
+            <div className="flex w-full h-12 fixed top-0 sm:flex bg-white z-10 shadow sm:shadow-none">
               <div className="w-30 sm:w-60 items-center justify-center p-2">
                 <p className="text-2xl mx-auto ml-10 w-fit mt-[-0.2rem] sm:mt-0">
                   Logo
