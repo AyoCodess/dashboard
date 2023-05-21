@@ -178,27 +178,33 @@ const MainNavigation = () => {
       </div>
       {/* MOBILE MENU */}
       <div className=" fixed top-0 sm:hidden z-10">
-        <div className="flex fixed top-2 left-3 items-center justify-between">
+        <div className=" fixed top-2 -right-0 mr-2 ">
           <button
             className="text-gray-600 focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
           >
             {!isOpen && <FiMenu className="w-6 h-6 mt-1" />}
-            {isOpen && <GrClose className="z-10 w-5 h-6 animate-fade-in" />}
           </button>
         </div>
         <Transition
+          // show={isOpen}
+          // enter="transition-transform duration-500"
+          // enterFrom="-translate-x-full"
+          // enterTo="translate-x-0"
+          // leave="transition-transform duration-500"
+          // leaveFrom="translate-x-0"
+          // leaveTo="-translate-x-full"
           show={isOpen}
           enter="transition-transform duration-500"
-          enterFrom="-translate-x-full"
-          enterTo="translate-x-0"
+          enterFrom="-translate-y-full"
+          enterTo="translate-y-0"
           leave="transition-transform duration-500"
-          leaveFrom="translate-x-0"
-          leaveTo="-translate-x-full"
+          leaveFrom="translate-y-0"
+          leaveTo="-translate-y-full"
         >
           {(ref) => (
             <section ref={ref}>
-              <div className="flex fixed top-2 left-3 items-center justify-between">
+              <div className="fixed top-2 -right-0 mr-2">
                 <button
                   className="text-gray-600 focus:outline-none"
                   onClick={() => setIsOpen(!isOpen)}

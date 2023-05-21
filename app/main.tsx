@@ -23,7 +23,7 @@ export function Main({ children }: { children: React.ReactNode }) {
       <section className="flex flex-col min-h-screen items-center justify-between">
         <header className="w-full h-12 fixed top-0 sm:flex bg-gray-50 text-gray-500 z-10 shadow sm:shadow-none sm:border-b sm:border-gray-200">
           <div className="w-30 sm:w-60 items-center justify-center p-2">
-            <p className="text mx-auto ml-10 w-fit mt-[0.3rem] sm:mt-[0.1rem]">
+            <p className="text mx-auto ml-3 w-fit mt-[0.3rem] sm:mt-[0.1rem]">
               Logo
             </p>
           </div>
