@@ -204,7 +204,7 @@ const MainNavigation = () => {
         >
           {(ref) => (
             <section ref={ref}>
-              <div className="fixed top-2 -right-0 mr-4">
+              <div className="fixed top-2 -right-0 mr-4 mt-2">
                 <button
                   className="text-gray-600 focus:outline-none"
                   onClick={() => setIsOpen(!isOpen)}
