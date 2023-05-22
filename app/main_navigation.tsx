@@ -178,7 +178,7 @@ const MainNavigation = () => {
       </div>
       {/* MOBILE MENU */}
       <div className=" fixed top-0 sm:hidden z-10">
-        <div className=" fixed top-2 -right-0 mr-2 ">
+        <div className=" fixed top-2 -right-0 mr-4 ">
           <button
             className="text-gray-600 focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -204,7 +204,7 @@ const MainNavigation = () => {
         >
           {(ref) => (
             <section ref={ref}>
-              <div className="fixed top-2 -right-0 mr-2">
+              <div className="fixed top-2 -right-0 mr-4">
                 <button
                   className="text-gray-600 focus:outline-none"
                   onClick={() => setIsOpen(!isOpen)}
