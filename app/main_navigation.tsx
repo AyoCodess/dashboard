@@ -291,9 +291,8 @@ const MainNavigation = () => {
                       </li>
                     ))}
                   </ul>
-
-                  <div className="p-4 mt-auto sm:mb-0">
-                    <hr className="border-b border-gray-200  mb-3" />
+                  <hr className="border-b border-gray-200 mt-3 mb-3" />
+                  <div className="px-4 mt-2 sm:mb-0">
                     <div className="flex flex-row gap-2 items-center">
                       <UserButton />
                       <div className="flex flex-col">
